@@ -21,6 +21,11 @@ class Backend {
   }
 }
 
-export const backend = new Backend(
-  process.env.REACT_APP_BACKEND_URL || "http://localhost:8000/"
-);
+const apiUrl = () => {
+  if (process.env.NODE_ENV === "test") return "";
+  else if (process.env.REACT_APP_BACKEND_URL)
+    return process.env.REACT_APP_BACKEND_URL;
+  return "http://localhost:8000";
+};
+
+export const backend = new Backend(apiUrl());
